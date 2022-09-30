@@ -1,0 +1,13 @@
+body {
+  height: 100vh;
+  background: linear-gradient(
+    50deg,
+    #04255c 0%,
+    #04255c 0%,
+    #d5d5d5 90%,
+    #d5d5d5 100%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}

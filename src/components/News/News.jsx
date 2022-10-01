@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext } from "react";
 import {
   Typography,
   Grid,
   Avatar,
-  Card,
   CircularProgress,
   CardActionArea,
   CardContent,
@@ -16,9 +15,10 @@ import {
 } from "@mui/material";
 import { useGetCryptoNewsQuery } from "../../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../../services/cryptoApi";
-import { CardStyled, SelectStyled } from "./styles";
+import { CardStyled } from "./styles";
 import moment from "moment";
-const News = ({ simplified, selected, setTopPageNw }) => {
+import { NavigationContext } from "../contexts/NavigationContext";
+const News = ({ simplified }) => {
   const demoImage =
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
@@ -28,7 +28,7 @@ const News = ({ simplified, selected, setTopPageNw }) => {
     count: simplified ? 6 : 14
   });
   const { data } = useGetCryptosQuery(100);
-  const top = useRef();
+  const { selected } = useContext(NavigationContext);
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -67,7 +67,7 @@ const News = ({ simplified, selected, setTopPageNw }) => {
           paddingLeft: "5%",
           paddingRight: "5%",
           paddingTop: selected === "/news" && 13,
-          mt: 2
+          mt: 13
         }}
       >
         {!simplified && (
@@ -78,7 +78,7 @@ const News = ({ simplified, selected, setTopPageNw }) => {
             lg={4}
             sx={{ paddingLeft: "8%", paddingTop: 3, mb: 4 }}
           >
-            <FormControl sx={{ width: 300 }} ref={setTopPageNw(top)}>
+            <FormControl sx={{ width: 300 }}>
               <Select
                 sx={{ color: "white" }}
                 displayEmpty

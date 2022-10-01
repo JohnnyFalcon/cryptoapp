@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Toolbar,
   Box,
@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
 import CandlestickChartIcon from "@mui/icons-material/CandlestickChart";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
+import { NavigationContext } from "../contexts/NavigationContext";
 import {
   AppBarStyled,
   LinkStyledHo,
@@ -22,19 +23,13 @@ import {
   LinkStyledNw,
   LinkMobile
 } from "./styles";
-const Navbar = ({ selected, setSelected, id, topPageNw, topPage2 }) => {
+const Navbar = ({ id }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-
+  const { selected, setSelected } = useContext(NavigationContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleTopPage2 = () => {
-    topPage2.current.scrollIntoView({ behavior: "smooth" });
-  };
-  const handleTopPageNw = () => {
-    topPageNw.current.scrollIntoView({ behavior: "smooth" });
-  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -197,7 +192,7 @@ const Navbar = ({ selected, setSelected, id, topPageNw, topPage2 }) => {
                   fontSize: 22
                 }}
               />
-              <LinkStyledCc to="/cryptocurrencies" onClick={handleTopPage2}>
+              <LinkStyledCc to="/cryptocurrencies">
                 Cryptocurrencies
               </LinkStyledCc>
             </BoxStyled>
@@ -208,9 +203,7 @@ const Navbar = ({ selected, setSelected, id, topPageNw, topPage2 }) => {
                   fontSize: 22
                 }}
               />
-              <LinkStyledNw to="/news" onClick={handleTopPageNw}>
-                News
-              </LinkStyledNw>
+              <LinkStyledNw to="/news">News</LinkStyledNw>
             </BoxStyled>
           </Box>
         </Toolbar>

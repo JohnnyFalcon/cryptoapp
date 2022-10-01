@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import millify from "millify";
 import { Link } from "react-router-dom";
 import { Typography, Grid, Box, Chip, useMediaQuery } from "@mui/material";
@@ -7,21 +7,16 @@ import CountUp from "react-countup";
 import Cryptocurrencies from "../Crypto/Cryptocurrencies";
 import News from "../News/News";
 
-const Homepage = ({ topPageCrypto, topPageNw }) => {
+const Homepage = () => {
   const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data?.stats;
   console.log(data);
-  const top = useRef();
+
   const isDesktop = useMediaQuery("(min-width:600px)");
   const is900 = useMediaQuery("(min-width:900px)");
-  const handleTopPageCrypto = () => {
-    topPageCrypto.current.scrollIntoView();
-  };
-  const handleTopPageNw = () => {
-    topPageNw.current.scrollIntoView();
-  };
+
   if (isFetching) return "Loading...";
-  // nothing
+
   return (
     <>
       <Typography
@@ -104,7 +99,6 @@ const Homepage = ({ topPageCrypto, topPageNw }) => {
                   color: "#5a0278",
                   marginRight: 35
                 }}
-                onClick={handleTopPageCrypto}
               >
                 Show more
               </Link>
@@ -131,7 +125,6 @@ const Homepage = ({ topPageCrypto, topPageNw }) => {
                         color: "#5a0278",
                         marginRight: 1
                       }}
-                      onClick={handleTopPageCrypto}
                     >
                       Show more
                     </Link>
@@ -163,7 +156,6 @@ const Homepage = ({ topPageCrypto, topPageNw }) => {
                 color: "#5a0278",
                 marginRight: 35
               }}
-              onClick={handleTopPageNw}
             >
               Show more
             </Link>
@@ -178,7 +170,6 @@ const Homepage = ({ topPageCrypto, topPageNw }) => {
                     textDecoration: "none",
                     color: "#5a0278"
                   }}
-                  onClick={handleTopPageNw}
                 >
                   Show more
                 </Link>

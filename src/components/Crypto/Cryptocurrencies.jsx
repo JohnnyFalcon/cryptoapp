@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect,  useContext } from "react";
 import millify from "millify";
-import { Link } from "react-router-dom";
+
 import { useGetCryptosQuery } from "../../services/cryptoApi";
 import {
   CardActionArea,
-  CardMedia,
+  
   Grid,
-  Card,
+  
   CardContent,
   Typography,
   Avatar,
@@ -17,12 +17,14 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { LinkStyled, CardStyled, TextFieldStyled } from "./styles";
-const Cryptocurrencies = ({ simplified, selected, setTopPageCrypto }) => {
+import { NavigationContext } from "../contexts/NavigationContext";
+const Cryptocurrencies = ({ simplified }) => {
   const count = simplified ? 12 : 100;
   const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-  const top = useRef();
+  const { selected } = useContext(NavigationContext);
+ 
   const isDesktop = useMediaQuery("(min-width:600px)");
   useEffect(() => {
     setCryptos(cryptosList?.data?.coins);
@@ -89,7 +91,6 @@ const Cryptocurrencies = ({ simplified, selected, setTopPageCrypto }) => {
           >
             <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
             <TextFieldStyled
-              ref={setTopPageCrypto(top)}
               fullWidth
               label="Search Cryptocurrency"
               variant="standard"

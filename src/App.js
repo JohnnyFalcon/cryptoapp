@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { CssBaseline, Typography } from "@mui/material";
 import { Route, Routes, useLocation, Link } from "react-router-dom";
 import Homepage from "./components/Homepage/Homepage";
@@ -8,63 +8,41 @@ import CryptoDetails from "./components/CryptoDetails";
 import Navbar from "./components/Navbar/Navbar";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
+import { NavigationContext } from "./components/contexts/NavigationContext";
 const App = () => {
-  const [selected, setSelected] = useState("");
-
-  const [topPageCrypto, setTopPageCrypto] = useState("");
-  const [topPageNw, setTopPageNw] = useState("");
   const [id, setId] = useState("");
+  const { setSelected } = useContext(NavigationContext);
   const theme = createTheme({
     typography: {
       fontFamily: ["cursive"]
     }
   });
 
-  let location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    setSelected(location.pathname);
-  }, [location]);
+    setSelected(pathname);
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <Navbar
-          selected={selected}
-          setSelected={setSelected}
-          id={id}
-          topPageNw={topPageNw}
-          topPageCrypto={topPageCrypto}
-        />
+        <Navbar id={id} />
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <Homepage topPageCrypto={topPageCrypto} topPageNw={topPageNw} />
-            }
-          ></Route>
+          <Route exact path="/" element={<Homepage />}></Route>
           <Route
             exact
             path="/cryptocurrencies"
-            element={
-              <Cryptocurrencies
-                selected={selected}
-                setTopPageCrypto={setTopPageCrypto}
-              />
-            }
+            element={<Cryptocurrencies />}
           ></Route>
           <Route
             exact
             path="/crypto/:coinId"
             element={<CryptoDetails setId={setId} />}
           ></Route>
-          <Route
-            exact
-            path="/news"
-            element={<News selected={selected} setTopPageNw={setTopPageNw} />}
-          ></Route>
+          <Route exact path="/news" element={<News />}></Route>
         </Routes>
         <div style={{ marginTop: 5 }}>
           <Typography

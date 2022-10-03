@@ -1,5 +1,7 @@
 body {
   height: 100vh;
+  padding-right: 0 !important;
+
   background: linear-gradient(
     50deg,
     #04255c 0%,

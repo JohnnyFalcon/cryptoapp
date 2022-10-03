@@ -1,12 +1,10 @@
-import React, { useState, useEffect,  useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import millify from "millify";
 
 import { useGetCryptosQuery } from "../../services/cryptoApi";
 import {
   CardActionArea,
-  
   Grid,
-  
   CardContent,
   Typography,
   Avatar,
@@ -24,7 +22,7 @@ const Cryptocurrencies = ({ simplified }) => {
   const [cryptos, setCryptos] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const { selected } = useContext(NavigationContext);
- 
+  const isMobile = useMediaQuery("(max-width:900px)");
   const isDesktop = useMediaQuery("(min-width:600px)");
   useEffect(() => {
     setCryptos(cryptosList?.data?.coins);
@@ -50,13 +48,13 @@ const Cryptocurrencies = ({ simplified }) => {
     );
   return (
     <>
-      {!simplified &&
-        ({
-          /* <Box
+      {!simplified && (
+        <Box
           sx={{
-            width: 500,
-            maxWidth: "100%",
-            mt: 15,
+            display: "flex",
+            alignItems: "flex-end",
+            width: isDesktop ? 500 : 300,
+            mt: isMobile ? 10 : 13,
             ml: "50%",
             transform: "translate(-50%)",
             mb: 5
@@ -64,46 +62,21 @@ const Cryptocurrencies = ({ simplified }) => {
           noValidate
           autoComplete="off"
         >
+          <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
           <TextFieldStyled
             fullWidth
+            label="Search Cryptocurrency"
+            variant="standard"
             onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon edge="start" />
-              </InputAdornment>
-            }
           />
-        </Box> */
-        },
-        (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              width: isDesktop ? 500 : 300,
-              mt: 13,
-              ml: "50%",
-              transform: "translate(-50%)",
-              mb: 5
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextFieldStyled
-              fullWidth
-              label="Search Cryptocurrency"
-              variant="standard"
-              onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
-            />
-          </Box>
-        ))}
+        </Box>
+      )}
 
       <Grid
         container
         sx={{
-          paddingLeft: isDesktop ? 6 : 2,
-          paddingRight: isDesktop ? 6 : 2,
+          paddingLeft: isDesktop ? 6 : 1,
+          paddingRight: isDesktop ? 6 : 1,
           mt: selected === "Crypto" && 5,
           mb: 5
         }}

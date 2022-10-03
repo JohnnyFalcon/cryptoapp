@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { NavigationContext } from "./components/contexts/NavigationContext";
+import Footer from "./components/Footer/Footer";
 const App = () => {
   const [id, setId] = useState("");
   const { setSelected } = useContext(NavigationContext);
@@ -44,19 +45,7 @@ const App = () => {
           ></Route>
           <Route exact path="/news" element={<News />}></Route>
         </Routes>
-        <div style={{ marginTop: 5 }}>
-          <Typography
-            variant="body2"
-            style={{ color: "white", textAlign: "center" }}
-          >
-            Copyright © 2022
-            <Link to="/" style={{ color: "black" }}>
-              Cryptoworld Inc.
-            </Link>
-            <br />
-            All Rights Reserved.
-          </Typography>
-        </div>
+        <Footer />
       </ThemeProvider>
     </>
   );

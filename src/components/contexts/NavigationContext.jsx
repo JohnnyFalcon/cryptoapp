@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const NavigationContext = createContext({
   selected: "",
-  setSelected: () => null
+  setSelected: () => ""
 });
 
 export const NavigationProvider = ({ children }) => {

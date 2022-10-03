@@ -11,7 +11,8 @@ import {
   Select,
   MenuItem,
   FormControl,
-  OutlinedInput
+  OutlinedInput,
+  useMediaQuery
 } from "@mui/material";
 import { useGetCryptoNewsQuery } from "../../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../../services/cryptoApi";
@@ -22,7 +23,7 @@ const News = ({ simplified }) => {
   const demoImage =
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
-
+  const isMobile = useMediaQuery("(max-width:900px)");
   const { data: cryptoNews } = useGetCryptoNewsQuery({
     newsCategory,
     count: simplified ? 6 : 14
@@ -64,10 +65,10 @@ const News = ({ simplified }) => {
       <Grid
         container
         sx={{
-          paddingLeft: "5%",
-          paddingRight: "5%",
+          paddingLeft: isMobile ? 1 : "5%",
+          paddingRight: isMobile ? 1 : "5%",
           paddingTop: selected === "/news" && 13,
-          mt: 13
+          mt: !isMobile && 4
         }}
       >
         {!simplified && (

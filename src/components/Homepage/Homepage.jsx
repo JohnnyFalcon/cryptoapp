@@ -13,7 +13,7 @@ const Homepage = () => {
   console.log(data);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
-  const is900 = useMediaQuery("(min-width:900px)");
+  const isMobile = useMediaQuery("(max-width:900px)");
 
   if (isFetching) return "Loading...";
 
@@ -26,7 +26,7 @@ const Homepage = () => {
       >
         Global Crypto Stats
       </Typography>
-      <Grid container spacing={4} sx={{ ml: is900 ? "10%" : "3%" }}>
+      <Grid container spacing={4} sx={{ ml: isMobile ? -2 : "10%" }}>
         <Grid item md={6} sm={6}>
           <Typography variant="body1" style={{ color: "white" }}>
             Total Cryptocurrencies
@@ -107,23 +107,29 @@ const Homepage = () => {
         </>
       ) : (
         <>
-          <Grid container sx={{ mt: 4, ml: "5%", mb: 3 }}>
-            <Grid item xs={6}>
-              <Typography variant="h4" sx={{ color: "white", ml: "4%" }}>
-                Top 12
+          <Box sx={{ mt: 4, ml: "5%", mb: 3 }}>
+            <Typography
+              variant="h4"
+              sx={{ color: "white", fontSize: "1.8rem" }}
+            >
+              Top 12 Cryptocurrencies
+            </Typography>
+            <Box display="flex" justifyContent="space-between">
+              <Typography
+                variant="h4"
+                sx={{ color: "white", fontSize: "1.8rem" }}
+              >
+                in the world
               </Typography>
-            </Grid>
-            <Grid item xs={6}>
               <Chip
-                sx={{ ml: "25%" }}
+                sx={{ mr: "5%" }}
                 label={
-                  <Typography variant="h6">
+                  <Typography variant="body2">
                     <Link
-                      to="/cryptocurrencies"
+                      to="/news"
                       style={{
                         textDecoration: "none",
-                        color: "#5a0278",
-                        marginRight: 1
+                        color: "#5a0278"
                       }}
                     >
                       Show more
@@ -131,20 +137,18 @@ const Homepage = () => {
                   </Typography>
                 }
               />
-            </Grid>
-
-            <Grid item xs={6}>
-              <Typography variant="h4" sx={{ color: "white", ml: "4%" }}>
-                Cryptocurrencies in the world
-              </Typography>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </>
       )}
 
       <Cryptocurrencies simplified />
-      <Box display="flex" justifyContent="space-between">
-        <Typography variant="h4" sx={{ color: "white", ml: "5%" }}>
+
+      <Box display="flex">
+        <Typography
+          variant="h4"
+          sx={{ color: "white", ml: "5%", fontSize: isMobile && "1.8rem" }}
+        >
           Lates Crypto News
         </Typography>
         {isDesktop ? (
@@ -162,8 +166,9 @@ const Homepage = () => {
           </Typography>
         ) : (
           <Chip
+            sx={{ mr: "5%", mt: 1 }}
             label={
-              <Typography variant="h6">
+              <Typography variant="body2">
                 <Link
                   to="/news"
                   style={{

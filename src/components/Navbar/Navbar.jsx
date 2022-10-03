@@ -6,7 +6,8 @@ import {
   Menu,
   Container,
   MenuItem,
-  Avatar
+  Avatar,
+  useMediaQuery
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
@@ -23,9 +24,10 @@ import {
   LinkStyledNw,
   LinkMobile
 } from "./styles";
+import "./styles.css";
 const Navbar = ({ id }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const { selected, setSelected } = useContext(NavigationContext);
+  const { selected } = useContext(NavigationContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -33,10 +35,17 @@ const Navbar = ({ id }) => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const isMobile = useMediaQuery("(max-width:900px)");
+  console.log(selected);
   return (
-    <AppBarStyled position="fixed">
+    <AppBarStyled position="fixed" className="AppBar">
       <Container maxWidth="xl">
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: isMobile ? "center" : "space-between"
+          }}
+        >
           <Box display="flex">
             <Avatar
               sx={{
@@ -73,7 +82,72 @@ const Navbar = ({ id }) => {
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             {/* Mobile view */}
+            <Box display="flex" sx={{ mt: 0.5 }}>
+              <Avatar
+                sx={{
+                  bgcolor: "#FFD700",
+                  mr: 2
+                }}
+              >
+                <CurrencyBitcoinIcon
+                  sx={{
+                    marginRight: 0.26,
+                    fontSize: 35
+                  }}
+                />
+              </Avatar>
+
+              <Typography
+                variant="h6"
+                sx={{
+                  mr: 2,
+                  mt: 0.5,
+
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "black",
+                  textDecoration: "none",
+                  justifyContent: "space-between"
+                }}
+              >
+                Cryptoworld
+              </Typography>
+            </Box>
+            {/* <Avatar
+              sx={{
+                display: { xs: "flex", md: "none" },
+                bgcolor: "#FFD700",
+                mr: 2,
+                ml: 5
+              }}
+            >
+              <CurrencyBitcoinIcon
+                sx={{
+                  marginRight: 0.26,
+                  fontSize: 35
+                }}
+              />
+            </Avatar>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "black",
+                textDecoration: "none"
+              }}
+            >
+              Cryptoworld
+            </Typography> */}
             <IconButton
+              className="icon-button"
               size="large"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -98,7 +172,6 @@ const Navbar = ({ id }) => {
               <MenuItem
                 onClick={() => {
                   handleCloseNavMenu();
-                  setSelected("Home");
                 }}
               >
                 <HomeIcon
@@ -109,7 +182,6 @@ const Navbar = ({ id }) => {
               <MenuItem
                 onClick={() => {
                   handleCloseNavMenu();
-                  setSelected("Crypto");
                 }}
               >
                 <CandlestickChartIcon
@@ -127,7 +199,6 @@ const Navbar = ({ id }) => {
               <MenuItem
                 onClick={() => {
                   handleCloseNavMenu();
-                  setSelected("Nw");
                 }}
               >
                 <AnnouncementIcon
@@ -137,38 +208,7 @@ const Navbar = ({ id }) => {
               </MenuItem>
             </Menu>
           </Box>
-          <Avatar
-            sx={{
-              display: { xs: "flex", md: "none" },
-              bgcolor: "#FFD700",
-              mr: 2,
-              ml: 5
-            }}
-          >
-            <CurrencyBitcoinIcon
-              sx={{
-                marginRight: 0.26,
-                fontSize: 35
-              }}
-            />
-          </Avatar>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "black",
-              textDecoration: "none"
-            }}
-          >
-            Cryptoworld
-          </Typography>
+
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <BoxStyled display="flex">
               <HomeIcon

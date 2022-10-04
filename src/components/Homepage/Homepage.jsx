@@ -10,7 +10,6 @@ import News from "../News/News";
 const Homepage = () => {
   const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data?.stats;
-  console.log(data);
 
   const isDesktop = useMediaQuery("(min-width:600px)");
   const isMobile = useMediaQuery("(max-width:900px)");
@@ -144,7 +143,7 @@ const Homepage = () => {
 
       <Cryptocurrencies simplified />
 
-      <Box display="flex">
+      <Box display="flex" sx={{ justifyContent: "space-between" }}>
         <Typography
           variant="h4"
           sx={{ color: "white", ml: "5%", fontSize: isMobile && "1.8rem" }}

@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import {
-  Typography,
-  Grid,
-  Select,
-  OutlinedInput,
-  FormControl,
-  MenuItem,
-  Divider,
-  useMediaQuery,
-  Box
-} from "@mui/material";
+import { Typography, Grid, Divider, useMediaQuery, Box } from "@mui/material";
 import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-const CryptoDetails = ({ setId }) => {
+import { NavigationContext } from "./contexts/NavigationContext";
+const CryptoDetails = () => {
   const { coinId } = useParams();
-  const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const cryptoDetails = data?.data?.coin;
   const isDesktop = useMediaQuery("(min-width:600px)");
   const volume = data?.data?.coin["24hVolume"];
-  console.log(timePeriod);
+  const { setSelectedCrypto } = useContext(NavigationContext);
+
+  useEffect(() => {
+    setSelectedCrypto(coinId);
+  }, [coinId, setSelectedCrypto]);
+
   const stats = [
     {
       title: "Price to USD",
@@ -91,9 +86,6 @@ const CryptoDetails = ({ setId }) => {
       icon: <MonetizationOnOutlinedIcon />
     }
   ];
-  useEffect(() => {
-    setId(coinId);
-  }, [coinId]);
 
   if (isFetching) return "Loading...";
 

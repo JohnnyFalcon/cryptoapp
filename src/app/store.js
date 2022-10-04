@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { cryptoApi } from "../services/cryptoApi";
 import { cryptoNewsApi } from "../services/cryptoNewsApi";
-import pageReducer from "../services/pageSlice";
+
 export default configureStore({
   reducer: {
     [cryptoApi.reducerPath]: cryptoApi.reducer,

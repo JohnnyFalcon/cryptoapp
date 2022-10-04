@@ -16,6 +16,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import CandlestickChartIcon from "@mui/icons-material/CandlestickChart";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import { NavigationContext } from "../contexts/NavigationContext";
+
 import {
   AppBarStyled,
   LinkStyledHo,
@@ -25,9 +26,9 @@ import {
   LinkMobile
 } from "./styles";
 import "./styles.css";
-const Navbar = ({ id }) => {
+const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const { selected } = useContext(NavigationContext);
+  const { selected, selectedCrypto } = useContext(NavigationContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -36,7 +37,9 @@ const Navbar = ({ id }) => {
     setAnchorElNav(null);
   };
   const isMobile = useMediaQuery("(max-width:900px)");
+
   console.log(selected);
+
   return (
     <AppBarStyled position="fixed" className="AppBar">
       <Container maxWidth="xl">
@@ -114,38 +117,7 @@ const Navbar = ({ id }) => {
                 Cryptoworld
               </Typography>
             </Box>
-            {/* <Avatar
-              sx={{
-                display: { xs: "flex", md: "none" },
-                bgcolor: "#FFD700",
-                mr: 2,
-                ml: 5
-              }}
-            >
-              <CurrencyBitcoinIcon
-                sx={{
-                  marginRight: 0.26,
-                  fontSize: 35
-                }}
-              />
-            </Avatar>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "black",
-                textDecoration: "none"
-              }}
-            >
-              Cryptoworld
-            </Typography> */}
+
             <IconButton
               className="icon-button"
               size="large"
@@ -187,7 +159,7 @@ const Navbar = ({ id }) => {
                 <CandlestickChartIcon
                   sx={{
                     color:
-                      selected === `/crypto/${id}`
+                      selected === `/crypto/${selectedCrypto}`
                         ? "#FFD700"
                         : selected === "/cryptocurrencies"
                         ? "#FFD700"
@@ -224,7 +196,7 @@ const Navbar = ({ id }) => {
               <CandlestickChartIcon
                 sx={{
                   color:
-                    selected === `/crypto/${id}`
+                    selected === `/crypto/${selectedCrypto}`
                       ? "#FFD700"
                       : selected === "/cryptocurrencies"
                       ? "#FFD700"
